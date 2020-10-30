@@ -1,19 +1,19 @@
 {
   "name": "grameme",
   "version": "1.0.0",
-  "description": "server-side grameme",
+  "description": "grameme backend",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shadrachp/grameme-server.git"
+    "url": "git+https://github.com/Shadrachp/grameme-backend.git"
   },
   "author": "Shadrach Penano",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Shadrachp/grameme-server/issues"
+    "url": "https://github.com/Shadrachp/grameme-backend/issues"
   },
-  "homepage": "https://github.com/Shadrachp/grameme-server#readme"
+  "homepage": "https://github.com/Shadrachp/grameme-backend#readme"
 }
