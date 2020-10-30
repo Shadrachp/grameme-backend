@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/Shadrachp/grameme-backend/issues"
   },
-  "homepage": "https://github.com/Shadrachp/grameme-backend#readme"
+  "homepage": "https://github.com/Shadrachp/grameme-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.4.2"
+  }
 }
