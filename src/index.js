@@ -10,8 +10,6 @@ const posts = require('./routes/posts');
 app.use(cors());
 app.use(express.json());
 
-
-
 //Post Routes
 app.use('/posts', posts);
 
