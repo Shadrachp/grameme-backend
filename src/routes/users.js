@@ -1,39 +1,41 @@
 const express = require("express");
-const app = express();
+const router = express.Router();
 const cors = require("cors");
 
 //load model
 const userModel = require('../models/Users');
 
-app.get('/', async(req, res) => {
+router.get('/:id', async(req, res) => {
   try {
-    const users = await userModel.getUser();
+    const { id } = req.params;
+    const users = await userModel.getUser(id);
     res.json(users.rows);
   } catch (err) {
     console.error(err.message);
   }
 });
 
-app.post('/', async(req, res) => {
+router.post('/', async(req, res) => {
   try {
-    const {name, email, password} = req.body;
-    const users = await userModel.register(name, email, password);
+    const {name, email} = req.body;
+    const users = await userModel.register(name, email, req.body.password);
     res.json(users.rows[0]);
   } catch (err) {
     console.error(err.message);
   }
 });
 
-app.put('/change_password', async(req, res) => {
+router.put('/change_password/:id', async(req, res) => {
   try {
-    const { password} = req.body;
-    const user;
+    const { id } = req.params;
     // if(password === password2)
-      user = await userModel.updatePassword(password);
+    const user = await userModel.updatePassword(id, req.body.password);
       res.json("Password successfully updated.");
   } catch (err) {
     console.error(err.message);
   }
 })
 
-module.exports = app;
+router.delete('/')
+
+module.exports = router;
