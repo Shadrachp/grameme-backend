@@ -1,9 +1,12 @@
 const pool = require("../../config/db");
 
 const model = {
-  getUser : () => {
+  getUser : (id) => {
     return pool.query(
-      `SELECT * FROM users`
+      `
+        SELECT * FROM users
+        WHERE id=$1
+      `, [id]
     );
   },
 
