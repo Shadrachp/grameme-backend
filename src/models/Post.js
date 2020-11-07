@@ -31,8 +31,8 @@ const model = {
               img_link = $3,
               description = $4
         WHERE post_id = $1
-        RETURNING *`
-      , [post_id, title, img_link, description]
+        RETURNING *`,
+        [post_id, title, img_link, description]
     );
   },
 
