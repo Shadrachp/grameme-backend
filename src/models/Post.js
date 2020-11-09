@@ -1,12 +1,12 @@
 const pool = require("../../config/db");
 
 const model = {
-  createPost : (title, img_link, description) => {
+  createPost : (user_id, title, img_link) => {
   return pool.query(
-      `INSERT INTO post (title, img_link, description)
+      `INSERT INTO post (user_id, title, img_link)
         VALUES($1, $2, $3)
         RETURNING *`,
-      [title, img_link, description]
+      [user_id, title, img_link]
     );
   },
 
@@ -24,15 +24,14 @@ const model = {
     );
   },
 
-  editPost : (post_id, title, img_link, description) => {
+  editPost : (post_id, title, img_link) => {
     return pool.query(
       `UPDATE post
           SET title = $2,
               img_link = $3,
-              description = $4
         WHERE post_id = $1
         RETURNING *`,
-        [post_id, title, img_link, description]
+        [post_id, title, img_link]
     );
   },
 
