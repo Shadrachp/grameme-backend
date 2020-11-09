@@ -24,7 +24,8 @@ const model = {
     return pool.query(
       `
         UPDATE users
-          SET password = $2
+          SET password = $2,
+              updated_at = NOW()
         WHERE id = $1
       `, [id, password]
     );
