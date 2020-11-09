@@ -27,7 +27,7 @@ router.post('/', async(req, res) => {
   }
 });
 
-router.put('/update/password/:id', async(req, res) => {
+router.patch('/update/password/:id', async(req, res) => {
   try {
     const { id } = req.params;
     const hashed = await bcrypt.hash(req.body.password, 10);
