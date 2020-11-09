@@ -19,7 +19,9 @@ app.use(cors({
   origin: "http://localhost:3000",
   credentials: true
 }));
+
 app.use(express.json());
+
 app.use(express.urlencoded({
   extended: true
 }));
@@ -28,7 +30,7 @@ app.use(session({
   secret: "secret",
   resave: true,
   saveUninitialized: true
-}))
+}));
 
 //Post Routes
 app.use('/posts', posts);

@@ -1,16 +1,17 @@
 const express = require("express");
-const app = express();
+const router = express.Router();
 const cors = require("cors");
 
 //load model
 const postModel = require('../models/Post');
 
 //create post
-app.post("/", async(req, res) => {
+router.post("/:user_id", async(req, res) => {
   //await
   try {
+    const { user_id } = req.params;
     const { title, img_link, description } = req.body;
-    const post = await postModel.createPost(title, img_link, description);
+    const post = await postModel.createPost(user_id, title, img_link, description);
     res.json(post.rows[0]);
   }catch(err) {
     console.error(err.message)
@@ -18,7 +19,7 @@ app.post("/", async(req, res) => {
 });
 
 //get all post
-app.get("/", async(req, res) => {
+router.get("/", async(req, res) => {
   try {
     const posts = await postModel.getPosts();
     res.json(posts.rows);
@@ -29,7 +30,7 @@ app.get("/", async(req, res) => {
 
 
 //get a post
-app.get("/:post_id", async(req, res) => {
+router.get("/:post_id", async(req, res) => {
   try {
     const { post_id } = req.params;
     const post = await postModel.getPost(post_id);
@@ -41,7 +42,7 @@ app.get("/:post_id", async(req, res) => {
 
 
 //update a post
-app.put("/:post_id", async(req, res) => {
+router.put("/:post_id", async(req, res) => {
   try{
     const { post_id } = req.params;
     const { title, img_link, description } = req.body;
@@ -54,7 +55,7 @@ app.put("/:post_id", async(req, res) => {
 
 
 //delete a new post
-app.delete("/:post_id", async(req, res) => {
+router.delete("/:post_id", async(req, res) => {
   try{
     const { post_id } = req.params;
     const post = await postModel.deletePost(post_id);
@@ -64,4 +65,6 @@ app.delete("/:post_id", async(req, res) => {
   }
 });
 
-module.exports = app;
+
+
+module.exports = router;
