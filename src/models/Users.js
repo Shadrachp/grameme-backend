@@ -23,7 +23,7 @@ const model = {
   updatePassword : (id, password) => {
     return pool.query(
       `
-        UPDATE post
+        UPDATE users
           SET password = $2
         WHERE id = $1
       `, [id, password]

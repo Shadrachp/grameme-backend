@@ -7,7 +7,6 @@ const pool = require("../config/db");
 
 const passport = require('passport');
 const passportStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcryptjs');
 const app = express();
 
 //Load routes

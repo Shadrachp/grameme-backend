@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 const cors = require("cors");
 
 //load model
@@ -18,24 +19,26 @@ router.get('/:id', async(req, res) => {
 router.post('/', async(req, res) => {
   try {
     const {name, email} = req.body;
-    const users = await userModel.register(name, email, req.body.password);
+    const hashed = await bcrypt.hash(req.body.password, 10);
+    const users = await userModel.register(name, email, hashed);
     res.json(users.rows[0]);
   } catch (err) {
     console.error(err.message);
   }
 });
 
-router.put('/change_password/:id', async(req, res) => {
+router.put('/update/password/:id', async(req, res) => {
   try {
+    console.log("accessed");
     const { id } = req.params;
-    // if(password === password2)
-    const user = await userModel.updatePassword(id, req.body.password);
-      res.json("Password successfully updated.");
+    const hashed = await bcrypt.hash(req.body.password, 10);
+    const user = await userModel.updatePassword(id, hashed);
+    res.json("Password successfully updated.");
   } catch (err) {
     console.error(err.message);
   }
-})
+});
 
-router.delete('/')
+// router.delete('/')
 
 module.exports = router;
