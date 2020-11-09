@@ -29,6 +29,7 @@ const model = {
       `UPDATE post
           SET title = $2,
               img_link = $3,
+              updated_at = NOW()
         WHERE post_id = $1
         RETURNING *`,
         [post_id, title, img_link]
