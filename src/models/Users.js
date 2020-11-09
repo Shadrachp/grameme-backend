@@ -28,6 +28,15 @@ const model = {
         WHERE id = $1
       `, [id, password]
     );
+  },
+
+  deleteUser : (id) => {
+    return pool.query(
+      `
+        DELETE FROM users
+        WHERE id = $1
+      `, [id]
+    )
   }
 };
 

@@ -38,8 +38,8 @@ const model = {
   deletePost : (post_id) => {
     return pool.query(
       `DELETE FROM post
-        WHERE post_id = $1
-        RETURNING *`,
+      WHERE post_id = $1
+      `,
       [post_id]
     );
   }

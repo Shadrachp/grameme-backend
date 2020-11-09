@@ -29,7 +29,6 @@ router.post('/', async(req, res) => {
 
 router.put('/update/password/:id', async(req, res) => {
   try {
-    console.log("accessed");
     const { id } = req.params;
     const hashed = await bcrypt.hash(req.body.password, 10);
     const user = await userModel.updatePassword(id, hashed);
@@ -39,6 +38,14 @@ router.put('/update/password/:id', async(req, res) => {
   }
 });
 
-// router.delete('/')
+router.delete('/delete/:id', async(req, res)=> {
+  try {
+    const { id } = req.params;
+    const user = await userModel.deleteUser(id);
+    res.json("User successfully deleted");
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 module.exports = router;
