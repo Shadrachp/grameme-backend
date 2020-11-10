@@ -13,7 +13,7 @@ const posts = require('./routes/posts');
 const users = require('./routes/users');
 
 //passport config
-require('../config/passport');//(passport);
+require('../config/passport');
 
 //middleware
 app.use(cors({

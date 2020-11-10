@@ -28,19 +28,19 @@ router.post('/', async(req, res) => {
   }
 });
 
-router.post('/login', async(req, res, next) => {
+router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
       if (err) throw err;
       if(!user) res.send('incorrect credentials');
       else {
         req.login(user, (err) => {
           if (err) throw err;
-          res.send("successfully Authenticated");
+          res.send("Successfully Authenticated");
           console.log(user);
-        });
+        })(req, res, next);
       }
     });
-})(req, res, next);
+});
 
 router.patch('/update/password', ensureAuth, async(req, res) => {
   try {
