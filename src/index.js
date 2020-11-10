@@ -1,17 +1,19 @@
-const express = require("express");
+const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
-const cors = require("cors");
-const pool = require("../config/db");
+const cors = require('cors');
+const pool = require('../config/db');
 
 const passport = require('passport');
-const passportStrategy = require('passport-local').Strategy;
 const app = express();
 
 //Load routes
 const posts = require('./routes/posts');
 const users = require('./routes/users');
+
+//passport config
+require('../config/passport');//(passport);
 
 //middleware
 app.use(cors({
@@ -28,8 +30,20 @@ app.use(express.urlencoded({
 app.use(session({
   secret: "secret",
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+//        secure: true,
+        maxAge:  24 * 60 * 60 * 1000 //sets cookie for 1 day
+  }
 }));
+
+//load cookie-parser middleware
+app.use(cookieParser());
+
+
+//passportjs middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Post Routes
 app.use('/posts', posts);
