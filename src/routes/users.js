@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const cors = require("cors");
 
 //load model
 const userModel = require('../models/Users');
