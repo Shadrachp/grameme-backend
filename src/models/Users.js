@@ -10,6 +10,15 @@ const model = {
     );
   },
 
+  getUserByEmail : (email) => {
+    return pool.query(
+      `
+        SELECT * FROM users
+        WHERE email=$1
+      `, [email]
+    );
+  },
+
   register : (name, email, password) => {
     return pool.query(
       `
