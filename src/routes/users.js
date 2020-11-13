@@ -50,9 +50,9 @@ router.get('/email/:email', async (req, res) => {
 
 router.patch('/update/password', ensureAuth, async(req, res) => {
   try {
-
+    const { id } = req.body;
     const hashed = await bcrypt.hash(req.body.password, 10);
-    const user = await userModel.updatePassword(req.user.id, hashed);
+    const user = await userModel.updatePassword(id, hashed);
     res.json("Password successfully updated.");
   } catch (err) {
     console.error(err.message);
