@@ -8,7 +8,7 @@ const { ensureAuth } = require('../../helpers/auth');
 //load model
 const userModel = require('../models/Users');
 
-router.get('/:id', async(req, res) => {
+router.get('/get/:id', ensureAuth, async(req, res) => {
   try {
     const { id } = req.params;
     const users = await userModel.getUser(id);
@@ -36,7 +36,7 @@ router.post('/login', (req, res, next) => {
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
-          res.send("Successfully Authenticated");
+          res.send("successfully logged in");
         })
       }
     })(req, res, next);
@@ -50,18 +50,17 @@ router.post('/logout', ensureAuth, (req, res) => {
   });
 });
 
-router.get('/email/:email', async (req, res) => {
-    const email = req.params.email;
-    const user = await userModel.getUserByEmail(email);
-    res.send(user.rows[0]);
+router.get('/test', ensureAuth, (req, res) => {
+
+    res.send(req.user);
 });
 
 router.patch('/update/password', ensureAuth, async(req, res) => {
   try {
-    const { id } = req.body;
     const hashed = await bcrypt.hash(req.body.password, 10);
-    const user = await userModel.updatePassword(id, hashed);
-    res.json("Password successfully updated.");
+    const user = await userModel.updatePassword(req.user.rows[0].id, hashed);
+
+    res.json("Password successfully updated");
   } catch (err) {
     console.error(err.message);
   }
