@@ -4,6 +4,8 @@ const router = express.Router();
 //load model
 const postModel = require('../models/Post');
 
+const { ensureAuth } = require('../../helpers/auth');
+
 //create post
 router.post("/:user_id", async(req, res) => {
   //await
@@ -18,7 +20,7 @@ router.post("/:user_id", async(req, res) => {
 });
 
 //get all post
-router.get("/", async(req, res) => {
+router.get("/", ensureAuth, async(req, res) => {
   try {
     const posts = await postModel.getPosts();
     res.json(posts.rows);

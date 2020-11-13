@@ -33,6 +33,6 @@ module.exports = function (passport) {
 
   passport.deserializeUser(async function (id, done) {
     const user = await userModel.getUser(id);
-    done(err, user);
+    done(null, user);
   })
 }
