@@ -42,6 +42,14 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
+router.post('/logout', ensureAuth, (req, res) => {
+  req.logout();
+  req.session.destroy(() => {
+      res.clearCookie('connect.sid');
+      res.send("Successfully logged out");
+  });
+});
+
 router.get('/email/:email', async (req, res) => {
     const email = req.params.email;
     const user = await userModel.getUserByEmail(email);

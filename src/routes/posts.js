@@ -20,7 +20,7 @@ router.post("/:user_id", async(req, res) => {
 });
 
 //get all post
-router.get("/", ensureAuth, async(req, res) => {
+router.get("/", async(req, res) => {
   try {
     const posts = await postModel.getPosts();
     res.json(posts.rows);
