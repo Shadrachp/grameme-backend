@@ -12,9 +12,6 @@ const app = express();
 const posts = require('./routes/posts');
 const users = require('./routes/users');
 
-//passport config
-require('../config/passport');
-
 //middleware
 app.use(cors({
   origin: "http://localhost:3000",
@@ -40,6 +37,8 @@ app.use(session({
 //load cookie-parser middleware
 app.use(cookieParser());
 
+//passport config
+require('../config/passport')(passport);
 
 //passportjs middleware
 app.use(passport.initialize());

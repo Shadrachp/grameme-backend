@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require('passport');
 const bcrypt = require('bcryptjs');
 
 const { ensureAuth } = require('../../helpers/auth');
@@ -33,20 +34,25 @@ router.post('/login', (req, res, next) => {
       if (err) throw err;
       if(!user) res.send('incorrect credentials');
       else {
-        req.login(user, (err) => {
+        req.logIn(user, (err) => {
           if (err) throw err;
           res.send("Successfully Authenticated");
-          console.log(user);
-        })(req, res, next);
+        })
       }
-    });
+    })(req, res, next);
+});
+
+router.get('/email/:email', async (req, res) => {
+    const email = req.params.email;
+    const user = await userModel.getUserByEmail(email);
+    res.send(user.rows[0]);
 });
 
 router.patch('/update/password', ensureAuth, async(req, res) => {
   try {
-    const { id } = req.body;
+
     const hashed = await bcrypt.hash(req.body.password, 10);
-    const user = await userModel.updatePassword(id, hashed);
+    const user = await userModel.updatePassword(req.user.id, hashed);
     res.json("Password successfully updated.");
   } catch (err) {
     console.error(err.message);
